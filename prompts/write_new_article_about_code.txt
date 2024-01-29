@@ -2,6 +2,14 @@ I'm writing an article for the wiki that I use for my software project. This wik
 
 Please write an article for the topic of: {topic}.
 
+# Code
+
+{topic} is a file, here is the content of the file that I want you to document:
+
+```{file_type}
+{code}
+```
+
 # Existing Information
 
 I already have some articles that mention {topic}, and they establish some facts about it. Here are some snippets from articles that mention {topic}:
@@ -30,4 +38,4 @@ In case you want to link to other articles, here are the titles of some that I'v
 
 {other_articles}
 
-Please write only the wiki article, without commentary. Again, the title of the article is "{topic}".
+Please write only the wiki article, without commentary. Again, the title of the article is "{topic}", I've given you the code for that file, and I want this wiki article to document it.

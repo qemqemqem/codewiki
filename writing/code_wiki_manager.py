@@ -18,7 +18,7 @@ class CodeWikiManager(WikiManager):
         # Load the code
         # TODO pass these in as parameters
         excluded_directories = ["Card Examples", "sets", "assets", ".git"]
-        excluded_extensions = ['.log', '.tmp', '.png']
+        excluded_extensions = ['.log', '.tmp', '.png', '.txt']
         self.code: RepoList = analyze_directory(code_path, excluded_directories, excluded_extensions)
 
     def get_all_links(self) -> Dict[str, int]:
