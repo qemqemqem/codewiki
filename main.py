@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from writing.code_wiki_manager import CodeWikiManager
 from writing.wiki_manager import WikiManager
 from writing.write_articles import add_articles_to_wiki
 
@@ -7,7 +8,7 @@ def load_wiki(wiki_name: str = "testing") -> WikiManager:
     wiki_path = Path(f"multiverse/{wiki_name}/wiki/docs")
 
     # Load all articles
-    wiki = WikiManager(wiki_name, wiki_path)
+    wiki = CodeWikiManager(wiki_name, wiki_path)
 
     # Get all links
     links = wiki.get_all_links()
