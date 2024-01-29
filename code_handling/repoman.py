@@ -32,10 +32,15 @@ def analyze_directory(directory: Path, excluded_dirs: Optional[List[str]] = None
     if excluded_extensions is None:
         excluded_extensions = []
 
+    # Convert excluded directories to Path objects relative to the directory
+    excluded_dir_paths = [directory / Path(ed) for ed in excluded_dirs]
+
     repo_files: RepoList = []
     for root, dirs, files in os.walk(directory, topdown=True):
         root_path = Path(root)
-        dirs[:] = [d for d in dirs if (root_path / d).relative_to(directory) not in map(Path, excluded_dirs)]
+
+        # Update dirs to exclude the specified subdirectories
+        dirs[:] = [d for d in dirs if not any((root_path / d).is_relative_to(ex_dir) for ex_dir in excluded_dir_paths)]
 
         for name in files:
             if any(name.endswith(ext) for ext in excluded_extensions):
@@ -51,7 +56,7 @@ def analyze_directory(directory: Path, excluded_dirs: Optional[List[str]] = None
 if __name__ == "__main__":
     # Example usage
     directory_path = Path("/home/keenan/Dev/mtgrandom")
-    excluded_directories = ["/Card Examples", "/sets", "/assets", "/.git"]
+    excluded_directories = ["Card Examples", "sets", "assets", ".git"]
     excluded_extensions = ['.log', '.tmp', '.png']
     files_in_repo = analyze_directory(directory_path, excluded_directories, excluded_extensions)
     for file in files_in_repo:

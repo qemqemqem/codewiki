@@ -13,6 +13,8 @@ class WikiManager:
 
         # Load all articles
         self.articles: List[Article] = []
+        if not self.wiki_path.exists():
+            self.wiki_path.mkdir(parents=True, exist_ok=True)
         for article_file in os.listdir(self.wiki_path):
             if article_file.endswith(".md") and article_file != "index.md":
                 with open(f"{self.wiki_path}/{article_file}", 'r') as f:
