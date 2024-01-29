@@ -2,6 +2,7 @@ import os
 import random
 from pathlib import Path
 from typing import List, Dict, Optional
+from typing import Tuple
 
 from code_handling.repoman import RepoList
 from code_handling.repoman import analyze_directory
@@ -18,7 +19,7 @@ class CodeWikiManager(WikiManager):
         # Load the code
         # TODO pass these in as parameters
         excluded_directories = ["Card Examples", "sets", "assets", ".git"]
-        excluded_extensions = ['.log', '.tmp', '.png', '.txt']
+        excluded_extensions = ['.log', '.tmp', '.png', '.txt', '.gitignore', 'None', '.md']
         self.code: RepoList = analyze_directory(code_path, excluded_directories, excluded_extensions)
 
     def get_all_links(self) -> Dict[str, int]:
@@ -39,3 +40,17 @@ class CodeWikiManager(WikiManager):
                 links[cleaned_name] = 1
 
         return links
+
+    def is_article_code(self, article_name: str) -> bool:
+        for repo_file in self.code:
+            cleaned_name = sanitize_article_name(repo_file.name)
+            if cleaned_name == article_name:
+                return True
+        return False
+
+    def get_article_type_and_contents(self, article_name: str) -> Tuple[str, str]:
+        for repo_file in self.code:
+            cleaned_name = sanitize_article_name(repo_file.name)
+            if cleaned_name == article_name:
+                return repo_file.file_type, repo_file.content
+        raise Exception(f"Article {article_name} not found in code.")

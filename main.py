@@ -25,5 +25,5 @@ def load_wiki(wiki_name: str = "testing", code_path: Path = Path("/home/keenan/D
 
 
 if __name__ == "__main__":
-    load_wiki(wiki_name="wiki_mtgrandom", code_path=Path("/home/keenan/Dev/mtgrandom"))
-    # add_articles_to_wiki("world1", num_new_articles=1000)
+    # load_wiki(wiki_name="wiki_mtgrandom", code_path=Path("/home/keenan/Dev/mtgrandom"))
+    add_articles_to_wiki(wiki_name="wiki_mtgrandom", code_path=Path("/home/keenan/Dev/mtgrandom"), num_new_articles=100)
