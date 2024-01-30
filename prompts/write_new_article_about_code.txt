@@ -21,7 +21,8 @@ I already have some articles that mention {topic}, and they establish some facts
 Please write the article for software engineers who are working on the repository. Assume that they are relatively new to the project, and they've come to this article to learn about {topic}. I'd like the tone to be professional and technical. This is a project in development, so please try to understand it as best you can, but please try to keep it consistent with the snippets above.
 
 I want to write more articles with more details later, so any time it would be appropriate to link to an article, please link to it with [[Double Brackets]], like in wikitext. It's okay if you aren't sure if the other article exists. Here are some things that are good to link:
-* Named or referenced files, like [[src/main.py]] or [[Cargo.toml]]
+* Named or referenced files, like [[main.py]] or [[Cargo.toml]]
+* Files in subdirectories, like [[utils/parse.py]] or [[gui/hero.png]]
 * Important concepts, like [[Logging]] or [[Dynamic Programming]]
 * Other projects or software that's referenced, like [[Docker]] or [[Project ICARUS]]
 * List items, if you're listing proper nouns or important topics
