@@ -13,12 +13,13 @@ def post_process_add_info(wiki: CodeWikiManager, article: Article):
 
     file_len = len(file_contents.split("\n"))
     # TODO Add some more info here like github info
-    structured_data = f"File: [{article.title}]({article_path})\nNum lines: {file_len}\nGithub history: TODO\n\n"
+    # TODO Format this better somehow
+    structured_data = f"File: [{article.title}]({article_path})\n\nNum lines: {file_len}\n\nGithub history: TODO\n\n"
 
     updated_contents = article.content_markdown
     if updated_contents.startswith("# ") and "\n" in updated_contents:
         # Insert structured data after the first line
-        updated_contents = updated_contents.split("\n", 1)[0] + structured_data + "\n\n" + updated_contents.split("\n", 1)[1]
+        updated_contents = updated_contents.split("\n", 1)[0] + "\n\n" + structured_data + "\n\n" + updated_contents.split("\n", 1)[1]
     else:
         # Insert structured data at the top
         updated_contents = structured_data + updated_contents
