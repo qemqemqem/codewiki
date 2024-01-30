@@ -27,6 +27,12 @@ I want to write more articles with more details later, so any time it would be a
 * Other projects or software that's referenced, like [[Docker]] or [[Project ICARUS]]
 * List items, if you're listing proper nouns or important topics
 
+You can reference code with triple backticks, like this:
+
+```
+foo.bar(my_var)
+```
+
 Link guidelines:
 * Prefer to link articles in place, rather that at the end of the article, like in a wikipedia article
 * Capitalization doesn't matter, so you can write [[Compiler]] or [[compiler]], and it will link to the same article
@@ -39,4 +45,4 @@ In case you want to link to other articles, here are the titles of some that I'v
 
 {other_articles}
 
-Please write only the wiki article, without commentary. Again, the title of the article is "{topic}", I've given you the code for that file, and I want this wiki article to document it.
+Please write only the wiki article, without commentary. Again, the title of the article is "{topic}", I've given you the code for that file, and I want this wiki article to document it. Please reference the code to help us understand it.

@@ -28,8 +28,11 @@ def penalize_noncode_articles(wiki: WikiManager, article_name: str) -> float:
 
 
 def uprank_important_seeming_files(wiki: WikiManager, article_name: str) -> float:
-    if re.match(r"main\.[a-zA-Z]+$", article_name) or re.match(r"README.*$", article_name):
-        return 2  # Do these files first I guess
+    # Do these files first I guess
+    if re.match(r"main\.[a-zA-Z]+$", article_name):
+        return 2
+    elif re.match(r"README.*$", article_name):
+        return 1
     else:
         return 0
 
