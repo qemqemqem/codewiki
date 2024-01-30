@@ -1,4 +1,5 @@
 import math
+import re
 from typing import Dict
 
 from writing.wiki_manager import WikiManager
@@ -19,6 +20,20 @@ def find_penalty_for_article_commonality(wiki: WikiManager, article_name: str) -
     return penalty
 
 
+def penalize_noncode_articles(wiki: WikiManager, article_name: str) -> float:
+    if "/" in article_name or re.match(r".*\.[a-zA-Z]+$", article_name):
+        return 0
+    else:
+        return -3  # Downrank concepts that aren't code files. The LLM wants articles for things like "MacOS" or "Python" but they aren't that important
+
+
+def uprank_important_seeming_files(wiki: WikiManager, article_name: str) -> float:
+    if re.match(r"main\.[a-zA-Z]+$", article_name) or re.match(r"README.*$", article_name):
+        return 2  # Do these files first I guess
+    else:
+        return 0
+
+
 def rank_articles(wiki: WikiManager, remove_existing: bool = True, only_include_existing: bool = False) -> Dict[str, float]:
     # Get all links
     links = wiki.get_all_links()
@@ -33,7 +48,10 @@ def rank_articles(wiki: WikiManager, remove_existing: bool = True, only_include_
     # Score each article
     scores = {}
     for link, count in links.items():
-        scores[link] = count + find_penalty_for_article_commonality(wiki, link)
+        scores[link] = count +\
+                       find_penalty_for_article_commonality(wiki, link) +\
+                       penalize_noncode_articles(wiki, link) +\
+                       uprank_important_seeming_files(wiki, link)
 
     # TODO: Revisit existing articles that need updating
 

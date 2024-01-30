@@ -8,6 +8,8 @@ I already have some articles that mention {topic}, and they establish some facts
 
 {snippets}
 
+Focus on the information contained in the snippets, we don't care so much about general information.
+
 # Style Guidelines
 
 Please write the article for software engineers who are working on the repository. Assume that they are relatively new to the project, and they've come to this article to learn about {topic}. I'd like the tone to be professional and technical. This is a project in development, so please try to understand it as best you can, but please try to keep it consistent with the snippets above.
@@ -31,4 +33,4 @@ In case you want to link to other articles, here are the titles of some that I'v
 
 {other_articles}
 
-Please write only the wiki article, without commentary. Again, the title of the article is "{topic}".
+Please write only the wiki article, without commentary. This is for a focused project wiki, so focus on the information I've given you, not general information. Again, the title of the article is "{topic}".
