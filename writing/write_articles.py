@@ -5,6 +5,7 @@ from strategy.next_article_selection import select_next_article
 from utils.gpt import prompt_completion_chat
 from writing.article import Article
 from writing.code_wiki_manager import CodeWikiManager
+from writing.postprocess import post_process_add_info
 from writing.wiki_manager import WikiManager
 
 
@@ -44,7 +45,7 @@ def add_articles_to_wiki(wiki_name: str = "testing", code_path: Path = "", num_n
     wiki_path = Path(f"multiverse/{wiki_name}/wiki/docs")
 
     for i in range(num_new_articles):
-        # Load all articles
+        # Load all articles, regenerating every time
         wiki = CodeWikiManager(wiki_name, wiki_path, code_path=code_path)
 
         # Select next article
@@ -54,6 +55,9 @@ def add_articles_to_wiki(wiki_name: str = "testing", code_path: Path = "", num_n
         # Get article text
         article_text = get_article_text(next_article, wiki)
         article = Article(next_article, content_wikitext=article_text)
+
+        # Add some structured info to the article
+        post_process_add_info(wiki, article)
 
         # Write article file
         with open(f"{wiki_path}/{next_article}.md", 'w') as f:

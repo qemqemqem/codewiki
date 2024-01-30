@@ -54,3 +54,10 @@ class CodeWikiManager(WikiManager):
             if cleaned_name == article_name:
                 return repo_file.file_type, repo_file.content
         raise Exception(f"Article {article_name} not found in code.")
+
+    def get_article_file_path(self, article_name: str) -> Path:
+        for repo_file in self.code:
+            cleaned_name = sanitize_article_name(repo_file.name)
+            if cleaned_name == article_name:
+                return Path(repo_file.location)
+        raise Exception(f"Article {article_name} not found in code.")
