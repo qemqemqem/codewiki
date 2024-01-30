@@ -9,8 +9,13 @@ from typing import List
 
 def sanitize_article_name(article_name: str) -> str:
     # In standard URLs, a comma is typically encoded as %2C. Use regex to do this replacement
+    # This function takes a file name and converts it to a format that's good to use as a URL within the markdown file
     article_name = re.sub(r",", "%2C", article_name)
     article_name = re.sub(r" ", "%20", article_name)
+
+    if "/" in article_name:
+        print(f"WARNING: Article name {article_name} contains a slash, which may cause problems with the wiki.")
+
     return article_name
 
 
@@ -66,13 +71,14 @@ def custom_title_case(s: str) -> str:
 
     # NOTE THAT IF YOU CHANGE THIS FUNCTION, IT MAY BREAK BACKWARDS COMPATIBILITY WITH EXISTING ARTICLES
 
-    # This function is a custom title case function that is used to title case article names.
-    # It is a modified version of the title() function, which is not sufficient for our purposes.
-    # The title() function capitalizes the first letter of every word, but it also capitalizes
-    # the first letter after every space, which we don't want. For example, "the" should not be
-    # capitalized in the middle of a title, but it should be capitalized if it is the first word
-    # of the title. This function does that.
-    # https://en.wikipedia.org/wiki/Title_case
+    # This function title-cased names in the original gamewiki, but we do not want that behavior for file names
+
+    # Skip this function for file names
+    # This heuristic tries to detect file names like "file.md" or "foo/bar.md" or "foo/bar/baz". It's not perfect ¯\_(ツ)_/¯
+    if "/" in s or re.match(r".*\.[a-zA-Z]+$", s):
+        return s
+
+    # Names that don't seem like file names are title-cased in this way I thought looked nice
 
     put_funny_spaces_back = "%20" in s
     if put_funny_spaces_back:
@@ -93,47 +99,3 @@ def custom_title_case(s: str) -> str:
         s = s[:-3] + ".md"
 
     return s
-
-
-def fix_link_cases():
-    # I had to write this because I accidentally generated a bunch of articles without title case names
-    # Change the file name of all `.md` files in the current directory to be title case
-    path = "../multiverse/world1/wiki/docs"
-    # for filename in os.listdir(path):
-    #     if filename.endswith(".md"):
-    #         new_filename = custom_title_case(filename)
-    #         new_filename = new_filename[:-3] + ".md"
-    #
-    #         if filename == new_filename:
-    #             # print(f"Skipping {filename} because it is already title case")
-    #             continue
-    #
-    #         # Check if the renamed file already exists
-    #         if os.path.exists(path + "/" + new_filename):
-    #             # print(f"WARNING: {new_filename} already exists! Skipping...")
-    #             continue
-    #
-    #         # os.rename(path + "/" + filename, path + "/" + new_filename)
-    #         print(f"{filename} -> {new_filename}")
-    for file_name in os.listdir(path):
-        if file_name.endswith(".md"):
-            with open(path + "/" + file_name, "r") as f:
-                contents = f.read()
-                contents_orig = contents
-            # Find all links like [\1](\2.md) and uppercase the \2 portion using the custom_title_case function
-            links = re.findall(r"\[(.*?)\]\((.*?)\.md\)", contents)
-            for link in links:
-                new_link = (link[0], custom_title_case(link[1]))
-                contents = contents.replace(f"[{link[0]}]({link[1]}.md)", f"[{new_link[0]}]({new_link[1]}.md)")
-            if contents_orig != contents:
-                print(f"Writing {file_name}")
-                with open(path + "/" + file_name, "w") as f:
-                    f.write(contents)
-
-
-if __name__ == "__main__":
-    # test_titles = ["John the cow", "Will-o'-the-wisp", "wizards", "the wizards", "the wizards of oz", "the wizards of oz and the cow", "back of the house"]
-    # for title in test_titles:
-    #     print(f"{title} -> {custom_title_case(title)}")
-
-    fix_link_cases()

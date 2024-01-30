@@ -4,7 +4,7 @@ from writing.code_wiki_manager import CodeWikiManager
 from writing.wiki_manager import WikiManager
 from writing.write_articles import add_articles_to_wiki
 
-def load_wiki(wiki_name: str = "testing", code_path: Path = Path("/home/keenan/Dev/mtgrandom")) -> WikiManager:
+def load_wiki(wiki_name: str, code_path: Path) -> WikiManager:
     wiki_path = Path(f"multiverse/{wiki_name}/wiki/docs")
 
     # Load all articles
@@ -26,4 +26,4 @@ def load_wiki(wiki_name: str = "testing", code_path: Path = Path("/home/keenan/D
 
 if __name__ == "__main__":
     # load_wiki(wiki_name="wiki_mtgrandom", code_path=Path("/home/keenan/Dev/mtgrandom"))
-    add_articles_to_wiki(wiki_name="wiki_mtgrandom", code_path=Path("/home/keenan/Dev/mtgrandom"), num_new_articles=100)
+    add_articles_to_wiki(wiki_name="nushell", code_path=Path("/home/keenan/Dev/nushell/src"), num_new_articles=100)

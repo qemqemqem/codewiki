@@ -31,7 +31,7 @@ Link guidelines:
 * Prefer to link articles in place, rather that at the end of the article, like in a wikipedia article
 * Capitalization doesn't matter, so you can write [[Compiler]] or [[compiler]], and it will link to the same article
 
-Otherwise, aim for a wikipedic style. You can use headings, lists, and other markdown features to organize your article.
+Otherwise, aim for a wikipedic style. You can use headings, lists, and other markdown features to organize your article. Focus on technical documentation the code for engineers.
 
 # Other Articles
 
