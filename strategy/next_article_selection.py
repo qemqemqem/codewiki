@@ -63,6 +63,11 @@ def rank_articles(wiki: WikiManager, remove_existing: bool = True, only_include_
         for article in wiki.articles:
             if article.title in scores:
                 del scores[article.title]
+            for l in scores.keys():
+                if l.lower() == article.title.lower():
+                    # This is kind of a hack; it's assuming that names aren't case-sensitive, so hopefully they aren't
+                    del scores[l]
+                    break
 
     if only_include_existing:
         scores_copy = scores.copy()
